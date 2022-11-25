@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "ba72e65b-dc18-4de1-9f2e-4605f0fef0c5",
+		"name": "SO-74474184",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8096111"
+	},
+	"item": [
+		{
+			"name": "Get JWT Tokens",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json()",
+							"pm.environment.set(\"refresh_token\", response.refresh);",
+							"pm.environment.set(\"access_token\", response.access);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"admin@admin.com\",\n    \"password\":\"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host_url}}/api/accounts/jwt/token/",
+					"host": [
+						"{{host_url}}"
+					],
+					"path": [
+						"api",
+						"accounts",
+						"jwt",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host_url}}/api/accounts/user-details/",
+					"host": [
+						"{{host_url}}"
+					],
+					"path": [
+						"api",
+						"accounts",
+						"user-details",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json()",
+							"pm.environment.set(\"access_token\", response.access);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refresh\":\"{{refresh_token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host_url}}/api/accounts/jwt/token/refresh/",
+					"host": [
+						"{{host_url}}"
+					],
+					"path": [
+						"api",
+						"accounts",
+						"jwt",
+						"token",
+						"refresh",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\":\"{{access_token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host_url}}/api/accounts/jwt/token/verify/",
+					"host": [
+						"{{host_url}}"
+					],
+					"path": [
+						"api",
+						"accounts",
+						"jwt",
+						"token",
+						"verify",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

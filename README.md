@@ -66,3 +66,9 @@ $ docker-compose exec web python manage.py migrate
 $ docker-compose exec web python manage.py createsuperuser
 # Load the site at http://127.0.0.1:8000
 ```
+
+### [SO-74474184](https://stackoverflow.com/questions/74474184/)
+
+Use this Postman Collection to test the API endpoints.
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](SO-74474184.postman_collection.json)
